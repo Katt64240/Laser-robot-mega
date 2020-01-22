@@ -7,15 +7,14 @@ public class LaserBeam : MonoBehaviour
 
     public bool IsActivated = true;
 
-    LineRenderer lr;
+    MeshFilter mf;
 
     float maxRayDistance = 1000f;
-    float rayWidth = 0.1f;
 
     // Start is called before the first frame update
     void Start()
     {
-        lr = GetComponent<LineRenderer>(); // använd egen cylinder mesh class
+        mf = GetComponent<MeshFilter>();
     }
 
     // Update is called once per frame
@@ -27,25 +26,56 @@ public class LaserBeam : MonoBehaviour
         }
     }
 
-    void UpdateLine()//uppdatera med mer funktionalitet
+    void UpdateLine()
     {
-        List<Vector3> points = new List<Vector3>();
-        points.Add(transform.position);
 
+        mf.mesh = BeamMesh.GenerateMesh(RecursiveCal(transform.position, transform.forward, transform.forward, 10, 5).ToArray(), transform);
+
+    }
+
+    List<BeamSegment> RecursiveCal(Vector3 point, Vector3 dir, Vector3 normal, int maxBounce, int maxPortal)
+    {
+        BeamSegment segment = new BeamSegment(point, point + dir * maxRayDistance, normal, -dir);
+        List<BeamSegment> segments = new List<BeamSegment>();
 
         RaycastHit hit;
-        if(Physics.Raycast(transform.position,transform.forward,out hit, maxRayDistance)) // använd spherecast istället
+        if (Physics.Raycast(point, dir, out hit, maxRayDistance))
         {
-            points.Add(hit.point);
-        }
-        else
-        {
-            points.Add(transform.position+transform.forward* maxRayDistance);
+            segment.p2 = hit.point;
+            segment.n2 = hit.normal;
+
+            if(hit.transform.tag == "Reflector" && maxBounce >= 1)
+            {
+                segments.AddRange(RecursiveCal(hit.point, Vector3.Reflect(dir, hit.normal), hit.normal, maxBounce - 1, maxPortal));
+                
+            }
+
+            if (hit.transform.tag == "Portal" && maxPortal >= 1)
+            {
+                Transform[] portals = hit.transform.GetComponent<Portal>().GetExitPortals();
+
+                for(int i = 0; i < portals.Length; i++)
+                {
+                    Vector3 exitDir = Vector3.Reflect(dir, hit.normal);
+                    Vector3 exitPoint = hit.point;
+
+                    exitDir = hit.transform.InverseTransformDirection(exitDir);
+                    exitPoint = hit.transform.InverseTransformPoint(exitPoint);
+                    //exitPoint.x *= -1;
+
+                    exitDir = portals[i].TransformDirection(exitDir);
+                    exitPoint = portals[i].TransformPoint(exitPoint);
+
+                    //                                           ------Portal normal------
+                    segments.AddRange(RecursiveCal(exitPoint, exitDir, portals[i].up, maxBounce , maxPortal - 1));
+                }
+            }
         }
 
-        lr.positionCount = points.Count;
-        lr.SetPositions(points.ToArray());
+        segments.Add(segment);
 
-        lr.SetWidth(rayWidth, rayWidth);
+        return segments;
     }
+
+
 }
