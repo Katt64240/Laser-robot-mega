@@ -70,6 +70,11 @@ public class LaserBeam : MonoBehaviour
                     segments.AddRange(RecursiveCal(exitPoint, exitDir, portals[i].up, maxBounce , maxPortal - 1));
                 }
             }
+
+            if(hit.transform.tag == "Sensor")
+            {
+                hit.transform.GetComponent<Sensor>().isHitByLaser = true;
+            }
         }
 
         segments.Add(segment);
