@@ -37,9 +37,7 @@ public static class BeamMesh
             }
 
             vertices.AddRange(cylindePoints);
-            
         }
-
 
         mesh.vertices = vertices.ToArray();
         mesh.triangles = triangles.ToArray();
@@ -55,28 +53,23 @@ public static class BeamMesh
         Vector3 p2 = segment.p2;
         Vector3 n1 = segment.n1;
         Vector3 n2 = segment.n2;
-        Vector3 dir = (p2 - p1).normalized;
 
+        Vector3 dir = (p2 - p1).normalized;
 
         float angleSegment = (2 * Mathf.PI) / lod;
 
-        Vector3 perpendicularAxis = FindPerpendicularVector(n1, n2);
-
-        Vector3 flatDir1 = Vector3.Cross(perpendicularAxis, n1).normalized;
-        Vector3 flatDir2 = Vector3.Cross(perpendicularAxis, n2).normalized;
-
-        float scaleFactor1 = -beamRadious / Vector3.Dot(n1, dir);
-        float scaleFactor2 = -beamRadious / Vector3.Dot(n2, dir);
+        Vector3 axis1 = FindPerpendicularVector(p2-p1, Vector3.up).normalized;
+        Vector3 axis2 = Vector3.Cross(axis1, p2-p1).normalized;
 
 
-        for (int p = 0; p < lod; p++)//*(0.5f/ Mathf.Cos(angle1))
+        for (int p = 0; p < lod; p++)
         {
             //create elongated rings
-            cylindePoints[p] = flatDir1 * Mathf.Cos(angleSegment * p) * scaleFactor1
-                + perpendicularAxis * Mathf.Sin(angleSegment * p) * beamRadious;
+            cylindePoints[p] = axis1 * Mathf.Cos(angleSegment * p) * beamRadious
+                + axis2 * Mathf.Sin(angleSegment * p) * beamRadious;
 
-            cylindePoints[p + lod] = flatDir2 * Mathf.Cos(angleSegment * p) * scaleFactor2
-                + perpendicularAxis * Mathf.Sin(angleSegment * p) * beamRadious;
+            cylindePoints[p + lod] = axis1 * Mathf.Cos(angleSegment * p) * beamRadious
+                + axis2 * Mathf.Sin(angleSegment * p) * beamRadious;
 
             //place points
             cylindePoints[p] += p1;

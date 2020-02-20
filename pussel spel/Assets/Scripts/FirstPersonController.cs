@@ -7,7 +7,7 @@ public class FirstPersonController : MonoBehaviour {
 	public float walkSpeed = 4.0f;
 	public float mouseSpeed = 3.0f;
 	public float verticalRange = 90f;
-	public float gravity = -9.81f;
+	public float gravity = -60f;
 	public float jumpSpeed = 10.0f;
 	public GameObject cameraCenter;
 
@@ -22,7 +22,8 @@ public class FirstPersonController : MonoBehaviour {
 	CharacterController cc;
 
 	// Use this for initialization
-	void Start () { 
+	void Start () {
+		Screen.lockCursor = true;
 		cc = GetComponent<CharacterController>();
 	}
 
