@@ -191,7 +191,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0c15d8855a2442943b133f4f9631aa08, type: 2}
+      objectReference: {fileID: 2100000, guid: 5a89659c645d2ee4bb3958bac506964b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4920bb86d6a1f204a84ae90698f2b5cf, type: 3}
 --- !u!1001 &663617157
@@ -583,12 +583,22 @@ PrefabInstance:
     - target: {fileID: 114140026806557784, guid: 4a9a4185194464317ba4d84c6e5b5c3c,
         type: 3}
       propertyPath: jumpSpeed
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114140026806557784, guid: 4a9a4185194464317ba4d84c6e5b5c3c,
         type: 3}
       propertyPath: gravity
-      value: -60
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114140026806557784, guid: 4a9a4185194464317ba4d84c6e5b5c3c,
+        type: 3}
+      propertyPath: mouseSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114140026806557784, guid: 4a9a4185194464317ba4d84c6e5b5c3c,
+        type: 3}
+      propertyPath: walkSpeed
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a9a4185194464317ba4d84c6e5b5c3c, type: 3}
