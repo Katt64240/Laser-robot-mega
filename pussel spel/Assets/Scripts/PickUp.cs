@@ -6,7 +6,7 @@ public class PickUp : MonoBehaviour
 {
 
     public float maxRange;
-    public Vector2 rotationSpeed;
+    public float rotationSpeed;
 
     float dist = 0;
     GameObject go;
@@ -23,15 +23,17 @@ public class PickUp : MonoBehaviour
 
         if(go != null)
         {
-            go.transform.Rotate(Camera.main.transform.right * Input.mouseScrollDelta.y * rotationSpeed.x, Space.World);
+            dist *= 1+(Input.mouseScrollDelta.y * 0.25f)*Time.deltaTime;
+
+            go.GetComponent<Rigidbody>().velocity = (Camera.main.transform.position + Camera.main.transform.forward * dist - go.transform.position) * 10f;
 
             if (Input.GetKey(KeyCode.E))
             {
-                go.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed.y,Space.World);
+                go.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed,Space.World);
             }
             if (Input.GetKey(KeyCode.Q))
             {
-                go.transform.Rotate(Vector3.up * Time.deltaTime * -rotationSpeed.y, Space.World);
+                go.transform.Rotate(Vector3.up * Time.deltaTime * -rotationSpeed, Space.World);
             }
         }
 
@@ -45,18 +47,21 @@ public class PickUp : MonoBehaviour
                 {
                     if (hit.transform.GetComponent<Rigidbody>() != null)
                     {
-                        go = hit.transform.gameObject;
-                        dist = (go.transform.position - Camera.main.transform.position).magnitude;
-                        go.transform.parent = Camera.main.transform;
-                        go.transform.localPosition = Vector3.forward * dist;
-                        go.GetComponent<Rigidbody>().isKinematic = true;
+                        if (hit.transform.GetComponent<Rigidbody>().isKinematic == false)
+                        {
+                            go = hit.transform.gameObject;
+                            dist = (go.transform.position - Camera.main.transform.position).magnitude;
+                            //go.transform.parent = Camera.main.transform;
+                            //go.transform.localPosition = Vector3.forward * dist;
+                            //go.GetComponent<Rigidbody>().isKinematic = true;
+                        }
                     }
                 }
             }
             else
             {
-                go.GetComponent<Rigidbody>().isKinematic = false;
-                go.transform.parent = null;
+                //go.GetComponent<Rigidbody>().isKinematic = false;
+                //go.transform.parent = null;
                 go = null;
             }
         }

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5993156025969646879}
   - component: {fileID: 5993156025969646872}
+  - component: {fileID: -7949818494578701044}
   m_Layer: 0
   m_Name: Mirror cube
   m_TagString: Reflector
@@ -41,13 +42,25 @@ Rigidbody:
   m_GameObject: {fileID: 5993156025969646873}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 1
+  m_AngularDrag: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-7949818494578701044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993156025969646873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b9f39b484a247e89ea0d4cea1919e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5993156025984641882
 GameObject:
   m_ObjectHideFlags: 0
@@ -62,7 +75,7 @@ GameObject:
   - component: {fileID: 5993156025984641880}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Reflector
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106,7 +119,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c72ec82f00f59473ca0edff43fc15c55, type: 2}
+  - {fileID: 2100000, guid: dcdce2fab9b1144119466cc78101df51, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -134,7 +147,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5993156025984641882}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 6800c4285c09a42c190b6b4c6da32081, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

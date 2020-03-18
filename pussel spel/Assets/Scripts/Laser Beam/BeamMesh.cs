@@ -51,8 +51,6 @@ public static class BeamMesh
 
         Vector3 p1 = segment.p1;
         Vector3 p2 = segment.p2;
-        Vector3 n1 = segment.n1;
-        Vector3 n2 = segment.n2;
 
         Vector3 dir = (p2 - p1).normalized;
 

@@ -35,38 +35,28 @@ public class LaserBeam : MonoBehaviour
 
     List<BeamSegment> RecursiveCal(Vector3 point, Vector3 dir, Vector3 normal, int maxBounce, int maxPortal)
     {
-        BeamSegment segment = new BeamSegment(point, point + dir * maxRayDistance, normal, -dir);
+        BeamSegment segment = new BeamSegment(point, point + dir * maxRayDistance);
         List<BeamSegment> segments = new List<BeamSegment>();
 
         RaycastHit hit;
         if (Physics.Raycast(point, dir, out hit, maxRayDistance))
         {
             segment.p2 = hit.point;
-            segment.n2 = hit.normal;
 
-            if(hit.transform.tag == "Reflector" && maxBounce >= 1)
+            if(hit.collider.transform.tag == "Reflector" && maxBounce >= 1)
             {
                 segments.AddRange(RecursiveCal(hit.point, Vector3.Reflect(dir, hit.normal), hit.normal, maxBounce - 1, maxPortal));
-                
             }
 
-            if (hit.transform.tag == "Portal" && maxPortal >= 1)
+            if (hit.collider.transform.tag == "Portal" && maxPortal >= 1)
             {
-                Transform[] portals = hit.transform.GetComponent<Portal>().GetExitPortals();
+                Transform[] portals = hit.collider.transform.GetComponent<Portal>().GetExitPortals();
 
                 for(int i = 0; i < portals.Length; i++)
                 {
-                    Vector3 exitDir = Vector3.Reflect(dir, hit.normal);
-                    Vector3 exitPoint = hit.point;
+                    Vector3 exitDir = -portals[i].transform.forward;
+                    Vector3 exitPoint = portals[i].transform.position;
 
-                    exitDir = hit.transform.InverseTransformDirection(exitDir);
-                    exitPoint = hit.transform.InverseTransformPoint(exitPoint);
-                    //exitPoint.x *= -1;
-
-                    exitDir = portals[i].TransformDirection(exitDir);
-                    exitPoint = portals[i].TransformPoint(exitPoint);
-
-                    //                                           ------Portal normal------
                     segments.AddRange(RecursiveCal(exitPoint, exitDir, portals[i].up, maxBounce , maxPortal - 1));
                 }
             }
