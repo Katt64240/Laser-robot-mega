@@ -27,6 +27,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Tutorial levels/T Level 6.unity
     guid: 6869005f744cc47048620ec078692a30
   - enabled: 1
+    path: Assets/Scenes/Extra levels/Level 1 Dented.unity
+    guid: fd0aa89d2cc434c2387b19da446872a8
+  - enabled: 1
+    path: Assets/Scenes/Extra levels/Level 2 Fall.unity
+    guid: ab11e79a3855641c1a80e476910e9d9d
+  - enabled: 1
     path: Assets/Scenes/Menu/End menu.unity
     guid: 6042705d663e0492ab5f0d4304c8cc92
   m_configObjects: {}
