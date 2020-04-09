@@ -13,6 +13,7 @@ DEVELOPMENT
 To further develop this project on your own:
 Download the whole project from github.
 Download and install the latest version of unity.
+https://unity3d.com/get-unity/download
 In unity create a new project and select the destination of this project.
 
 Information about how to create a new build can be found at:
