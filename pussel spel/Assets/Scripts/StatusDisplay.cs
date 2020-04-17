@@ -11,7 +11,7 @@ public class StatusDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        text.text = "Time : " + GameManager.timer.ToString("#.00");
+        SetText();
     }
 
     // Update is called once per frame
@@ -19,7 +19,19 @@ public class StatusDisplay : MonoBehaviour
     {
         if (update)
         {
+            SetText();
+        }
+    }
+
+    void SetText()
+    {
+        if (GameManager.colectables == 0)
+        {
             text.text = "Time : " + GameManager.timer.ToString("#.00");
+        }
+        else
+        {
+            text.text = "Time : " + GameManager.timer.ToString("#.00") + " Ärtsoppa : " + GameManager.colectables + " / ???";
         }
     }
 }

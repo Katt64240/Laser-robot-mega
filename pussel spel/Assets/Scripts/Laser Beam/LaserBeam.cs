@@ -65,6 +65,12 @@ public class LaserBeam : MonoBehaviour
             {
                 hit.transform.GetComponent<Sensor>().isHitByLaser = true;
             }
+
+            if(hit.transform.tag == "Colectable")
+            {
+                GameManager.colectables++;
+                Destroy(hit.transform.gameObject);
+            }
         }
 
         segments.Add(segment);

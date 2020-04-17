@@ -5,7 +5,7 @@ using UnityEngine;
 public static class BeamMesh
 {
     private static readonly int lod = 8; 
-    private static readonly float beamRadious = 0.1f;
+    private static readonly float beamRadious = 0.05f;
 
     
     public static Mesh GenerateMesh(BeamSegment[] segments, Transform origo)

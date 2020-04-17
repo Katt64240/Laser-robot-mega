@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static float timer = 0;
+    public static int colectables;
 
     // Start is called before the first frame update
     void Start()
