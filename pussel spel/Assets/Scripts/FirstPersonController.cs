@@ -30,6 +30,7 @@ public class FirstPersonController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        //Gravity and jumping
 		ySpeed += gravity * Time.deltaTime;
 		if (cc.isGrounded) {
 			ySpeed = -1;
@@ -44,7 +45,7 @@ public class FirstPersonController : MonoBehaviour {
 		verticalRotation = Mathf.Clamp(verticalRotation, -verticalRange, verticalRange);
 		cameraCenter.transform.localEulerAngles = Vector3.left * verticalRotation;
 
-
+        //Movement
 		moveSpeed = walkSpeed;
 		forwardSpeed = Input.GetAxis ("Vertical") * moveSpeed;
 		sideSpeed = Input.GetAxis ("Horizontal") * moveSpeed;

@@ -28,12 +28,11 @@ public class LaserBeam : MonoBehaviour
 
     void UpdateLine()
     {
-
-        mf.mesh = BeamMesh.GenerateMesh(RecursiveCal(transform.position, transform.forward, transform.forward, 10, 5).ToArray(), transform);
-
+        mf.mesh = BeamMesh.GenerateMesh(RecursiveCal(transform.position, transform.forward, 10, 5).ToArray(), transform);
     }
 
-    List<BeamSegment> RecursiveCal(Vector3 point, Vector3 dir, Vector3 normal, int maxBounce, int maxPortal)
+    //Gets list of beam segments given a source and laser direction
+    List<BeamSegment> RecursiveCal(Vector3 point, Vector3 dir, int maxBounce, int maxPortal)
     {
         BeamSegment segment = new BeamSegment(point, point + dir * maxRayDistance);
         List<BeamSegment> segments = new List<BeamSegment>();
@@ -45,7 +44,7 @@ public class LaserBeam : MonoBehaviour
 
             if(hit.collider.transform.tag == "Reflector" && maxBounce >= 1)
             {
-                segments.AddRange(RecursiveCal(hit.point, Vector3.Reflect(dir, hit.normal), hit.normal, maxBounce - 1, maxPortal));
+                segments.AddRange(RecursiveCal(hit.point, Vector3.Reflect(dir, hit.normal), maxBounce - 1, maxPortal));
             }
 
             if (hit.collider.transform.tag == "Portal" && maxPortal >= 1)
@@ -57,7 +56,7 @@ public class LaserBeam : MonoBehaviour
                     Vector3 exitDir = -portals[i].transform.forward;
                     Vector3 exitPoint = portals[i].transform.position;
 
-                    segments.AddRange(RecursiveCal(exitPoint, exitDir, portals[i].up, maxBounce , maxPortal - 1));
+                    segments.AddRange(RecursiveCal(exitPoint, exitDir, maxBounce , maxPortal - 1));
                 }
             }
 

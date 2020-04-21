@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!audioSource.isPlaying)
+        if (!audioSource.isPlaying) //Select a random clip to play if no clip is playing
         {
             int nextSound = Random.Range(0, soundtracks.Length);
             audioSource.clip = soundtracks[nextSound];

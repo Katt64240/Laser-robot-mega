@@ -13,6 +13,7 @@ public class OBCheck : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //check if object is out of bounds
         if(transform.position.magnitude > 100f)
         {
             Application.LoadLevel(Application.loadedLevel);

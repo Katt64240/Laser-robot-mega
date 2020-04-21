@@ -7,7 +7,7 @@ public static class BeamMesh
     private static readonly int lod = 8; 
     private static readonly float beamRadious = 0.05f;
 
-    
+    //creates the laser mesh from array of beam segments
     public static Mesh GenerateMesh(BeamSegment[] segments, Transform origo)
     {
         Mesh mesh = new Mesh();
@@ -33,7 +33,6 @@ public static class BeamMesh
                 triangles.Add(l + p);
                 triangles.Add(l + (p + 1) % lod + lod);
                 triangles.Add(l + (p + 1) % lod);
-                // add endpoints
             }
 
             vertices.AddRange(cylindePoints);
@@ -45,6 +44,7 @@ public static class BeamMesh
         return mesh;
     }
 
+    //Creates a cylinder points from a beam segment transformed to local space
     static Vector3[] GenerateCylinderPoints(BeamSegment segment, Transform origo)
     {
         Vector3[] cylindePoints = new Vector3[lod * 2];
@@ -62,7 +62,7 @@ public static class BeamMesh
 
         for (int p = 0; p < lod; p++)
         {
-            //create elongated rings
+            //create rings
             cylindePoints[p] = axis1 * Mathf.Cos(angleSegment * p) * beamRadious
                 + axis2 * Mathf.Sin(angleSegment * p) * beamRadious;
 
@@ -81,6 +81,7 @@ public static class BeamMesh
         return cylindePoints;
     }
 
+    //finds a perpendicular vector even if v1, v2 are paralell
     static Vector3 FindPerpendicularVector(Vector3 v1, Vector3 v2)
     {
         if (Vector3.Cross(v1, v2) != Vector3.zero)

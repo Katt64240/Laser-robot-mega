@@ -6,6 +6,8 @@ public class Portal : MonoBehaviour
 {
     public int frequency = 0;
 
+
+    //Gets all portals with the same frequency (Excluding this one)
     public Transform[] GetExitPortals()
     {
         GameObject[] allPortals = GameObject.FindGameObjectsWithTag("Portal");

@@ -25,6 +25,7 @@ public class StatusDisplay : MonoBehaviour
 
     void SetText()
     {
+        //Displays the time and number of colectables
         if (GameManager.colectables == 0)
         {
             text.text = "Time : " + GameManager.timer.ToString("#.00");

@@ -11,16 +11,11 @@ public class PickUp : MonoBehaviour
     float dist = 0;
     GameObject go;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
-
+        //manipulate object
         if(go != null)
         {
             dist *= 1+(Input.mouseScrollDelta.y * 0.25f)*Time.deltaTime;
@@ -37,7 +32,7 @@ public class PickUp : MonoBehaviour
             }
         }
 
-
+        //PickUp up object
         if (Input.GetMouseButtonDown(0))
         {
             if (go == null)
@@ -51,17 +46,13 @@ public class PickUp : MonoBehaviour
                         {
                             go = hit.transform.gameObject;
                             dist = (go.transform.position - Camera.main.transform.position).magnitude;
-                            //go.transform.parent = Camera.main.transform;
-                            //go.transform.localPosition = Vector3.forward * dist;
-                            //go.GetComponent<Rigidbody>().isKinematic = true;
                         }
                     }
                 }
             }
             else
             {
-                //go.GetComponent<Rigidbody>().isKinematic = false;
-                //go.transform.parent = null;
+                //dropp object
                 go = null;
             }
         }
